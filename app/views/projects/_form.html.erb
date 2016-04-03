@@ -1,0 +1,70 @@
+
+
+
+
+
+
+<%= form_tag('/projects', method: :post) do %>
+<input id="name_" name="removed_ids[]" type="hidden">
+ 
+<div class="projects" id="projects">
+  <div class="field">
+   <lable>name</lable>
+    <%= text_field_tag "name[]" %>
+  </div>
+  <div class="field">
+    <%# f.label :description %><br />
+    <lable>description</lable>
+    <%= text_area_tag "description[]" %>
+  </div>
+  <div class="field">
+    <%#= f.label :price %><br />
+    <lable>price</lable>
+    <%= text_field_tag "price[]" %>
+  </div>
+</div>
+
+
+
+  <a id="add_project" href="#" >add Project </a>
+  <div class="actions">
+    <%#= f.submit %>
+    <%= submit_tag "Submit", class: "btn btn-primary" %> <br>
+
+
+<% end %>
+
+<div class="project_details" style="display:none;">
+
+<div class="projects">
+  <div class="field">
+   <lable>name</lable>
+    <input id="name_" name="name[]" type="text">
+  </div>
+  <div class="field">
+    <br>
+    <lable>description</lable>
+    <textarea id="description_" name="description[]"></textarea>
+  </div>
+  <div class="field">
+    <br>
+    <lable>price</lable>
+    <input id="price_" name="price[]" type="text">
+  </div>
+</div>
+</div>
+
+
+
+<script>
+
+$( "#add_project" ).click(function() {
+  alert( "Handler for .click() called." );
+  find_project = $(".project_details .projects").clone();
+  console.log(1111111111)
+  console.log(find_project)
+  $( "#projects" ).last().after(find_project);
+});
+
+</script>
+

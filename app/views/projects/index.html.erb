@@ -1,0 +1,120 @@
+<h1>Listing projects</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Price</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @projects.each do |project| %>
+  <tr>
+    <td><%= project.name %></td>
+    <td><%= project.description %></td>
+    <td><%= project.price %></td>
+    <td><%= link_to 'Show', project %></td>
+    <td><%= link_to 'Edit', edit_project_path(project) %></td>
+    <td><%= link_to 'Destroy', project, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project', new_project_path %>
+
+
+
+<%= form_tag('/projects', method: :post,:id=>"projects_form") do %>
+<input id="name_" name="removed_ids[]" type="hidden">
+ <% @projects.each do |project| %>
+<div class="projects" id="projects">
+  <div class="field">
+   <lable>name</lable>
+    <%= text_field_tag "name[]", "#{project.name}" %>
+  </div>
+  <div class="field">
+    <%# f.label :description %><br />
+    <lable>description</lable>
+    <%= text_area_tag "description[]", "#{project.description}" %>
+  </div>
+  <div class="field">
+    <%#= f.label :price %><br />
+    <lable>price</lable>
+    <%= text_field_tag "price[]","#{project.price}" %>
+  </div>
+  <a id="remove_project" href="#" project_id="<%= project.id %>" >Remove Project </a>
+</div>
+<% end %>
+
+
+
+  <a id="add_project" href="#" >add Project </a>
+  <div class="actions">
+    <%#= f.submit %>
+    <%= submit_tag "Submit", class: "btn btn-primary" %> <br>
+
+
+<% end %>
+
+<div class="project_details" style="display:none;">
+<div class="projects">
+  <div class="field">
+   <lable>name</lable>
+    <input id="name_" name="name[]" type="text">
+  </div>
+  <div class="field">
+    <br>
+    <lable>description</lable>
+    <textarea id="description_" name="description[]"></textarea>
+  </div>
+  <div class="field">
+    <br>
+    <lable>price</lable>
+    <input id="price_" name="price[]" type="text">
+  </div>
+  <a id="remove_project" href="#" >Remove Project </a>
+</div>
+</div>
+
+
+<script>
+
+$(document).ready(function() {
+$( "#add_project" ).click(function() {
+  // alert( "Handler for .click() called." );
+  find_project = $(".project_details .projects").clone();
+  console.log(1111111111)
+  console.log(find_project)
+  if($( "#projects" ))
+  {
+     $( "#projects" ).last().after(find_project);
+  }
+  else
+  {
+    $( ".project_details" ).after(find_project);
+  }
+ 
+});
+
+//$(document).find("#remove_project").live('click', function(){
+//$('#remove_project').live('click', function(){ 
+//$( "#remove_project" ).click(function() {
+  $(document).delegate('#remove_project', 'click', function(){
+    //etc
+
+  console.log(111111111111);
+  // event.preventDefault();
+  project_id = $(this).attr("project_id");
+  console.log(project_id)
+  $("#projects_form").append("<input id='name_' name='removed_ids[]' type='hidden' value="+project_id+" >");
+  $(this).parent().remove();  
+});
+
+});
+
+</script>
+
